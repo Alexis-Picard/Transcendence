@@ -1,0 +1,125 @@
+networks:
+  monitoring:
+    name: monitoring
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${POSTGRES_DATA}
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+
+services:
+  web:
+    build: ./django
+    volumes:
+      - ./django:/code  
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - monitoring
+
+  db:
+    build: ./postgresql
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      retries: 5
+    networks:
+      - monitoring
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - ./django:/code
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+    networks:
+      - monitoring
+
+  prometheus:
+    container_name: prometheus
+    depends_on:
+      - web
+    build: ./prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/alert_rules.yml:/etc/prometheus/alert_rules.yml
+    env_file:
+      - .env
+    ports:
+      - '9090:9090'
+    networks:
+      - monitoring
+
+  grafana:
+    container_name: grafana
+    depends_on:
+      - web
+    build: ./grafana
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - ./grafana/data:/var/lib/grafana
+    env_file:
+      - .env
+    ports:
+      - '3002:3002'
+    networks:
+      - monitoring
+
+  alertmanager:
+    container_name: alertmanager
+    depends_on:
+      - web
+    build: ./alertmanager
+    env_file:
+      - .env
+    volumes:
+      - ./alertmanager/data:/alertmanager/data
+    networks:
+      - monitoring
+
+  cadvisor:
+    container_name: cadvisor
+    depends_on:
+      - web
+    build: ./exporters/cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    networks:
+      - monitoring
+
+  postgres-exporter:
+    container_name: postgres-exporter
+    depends_on:
+      - web
+    build:
+      context: ./exporters/postgres-exporter
+    environment:
+      - DATA_SOURCE_NAME=${DATA_SOURCE_NAME}
+    networks:
+      - monitoring
+    platform: linux/amd64 # for MacBook

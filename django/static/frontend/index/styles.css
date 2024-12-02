@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #28292d;
+
+}
+
+.top-center-container {
+    display: flex;              /* Enable Flexbox layout */
+    justify-content: center;    /* Center horizontally */
+    align-items: flex-start;    /* Align to the top of the window */
+    height: 100vh;              /* Full viewport height */
+    margin: 0;                  /* Remove default margin */
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+nav {
+    background-color: #444;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+main {
+    /* padding: 20px; */
+    /* min-width: 800px; */
+    /* min-height: 700px; */
+}
+
+.form-control {
+    background-color: #28292d;
+    border: none;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    outline: none !important; 
+    border-bottom: 1px solid #a36a00;
+    color: #ffa500 !important;
+    max-width: none;
+}
+
+.form-control:focus {
+    background-color: #28292d;
+    color: #ffa500 !important;
+}
+
+.form-control:hover {
+    border-color: #ffa500;
+}
+
+.mshide {
+    display: none;
+}

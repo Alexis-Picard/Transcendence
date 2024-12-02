@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    <div class="row" id="user_info">
+        <div class="col-md-12">
+            <h2 class="text-center mb-4">My Profile</h2>
+            <hr class="my-4 bg-light">
+        </div>  
+
+        <!-- Display Avatar -->
+        <div class="col-md-4">
+            <div class="text-center mb-4">
+                <img id="userAvatar" alt="Avatar" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+            </div>
+        </div>
+        
+        <!-- Vertical Separator -->
+        <div class="col-md-1 d-none d-md-block">
+            <div class="vertical-separator"></div>
+        </div>
+        
+        <!-- Display Username/Nickname -->
+        <div class="col-md-3">
+            <div class="pr-5 pt-5">
+                <p><strong>Username:</strong> <span id="username"></span></p>
+                <p><strong>Nickname:</strong> <span id="nickname"></span></p>
+            </div>
+        </div>
+        <div class="p-1 rounded pr-5 pt-5 mt-2" id="statsSection">        
+            <p><strong>Wins:</strong> <span id="wins"></span></p>
+            <p><strong>Losses:</strong> <span id="losses"></span></p>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <hr class="my-4 bg-light">
+        <h4 class="text-center mb-1">Friends</h4>
+        <br>
+        <div class="text-center mb-3" id="friendsList">
+            <!-- Friends will be populated here via JavaScript -->
+        </div> 
+    </div>
+    <script src="/static/frontend/profile/profileScript.js"></script>
+</body>

@@ -1,0 +1,96 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong</title>
+    <link rel="text/html" href="pong.css">
+</head>
+
+<body>
+    <div id="menuP">
+        <h1>Select Game Mode</h1>
+        <button id="singlePlayer">Single Player (vs IA)</button>
+        <button id="multiPlayer">Multiplayer (1 vs 1)</button>
+        <button id="tournament">Tournament (4 players)</button>
+        <button id="freeforall">free4all (4 players)</button>
+        <button id="resume">resume</button>
+    </div>
+
+    <div id="nameForm">
+        <h2>Select Player Names</h2>
+        <label for="player1Select">Player 1 Name:</label>
+        <select id="player1Select">
+        </select>
+        <label for="player2Select">Player 2 Name:</label>
+        <select id="player2Select">
+        </select>
+        <button id="startMultiplayer">Start Game</button>
+        <button id="closeNameForm">Close</button> 
+    </div>
+
+<div id="tournamentForm" style="display: none;">
+    <h2>Select Player Names</h2>
+    <div>
+        <label for="player5Select">Player 1:</label>
+        <select id="player5Select"></select>
+    </div>
+    <div>
+        <label for="player6Select">Player 2:</label>
+        <select id="player6Select"></select>
+    </div>
+    <div>
+        <label for="player3Select">Player 3:</label>
+        <select id="player3Select"></select>
+    </div>
+    <div>
+        <label for="player4Select">Player 4:</label>
+        <select id="player4Select"></select>
+    </div>
+    <button id="startTournament">Start Game</button>
+    <button id="cancelTournament">Close</button>
+</div>
+
+<div id="freeforallForm" style="display: none;">
+    <h2>Select Player Names</h2>
+    <div>
+        <label for="player7Select">Player 1:</label>
+        <select id="player7Select"></select>
+    </div>
+    <div>
+        <label for="player8Select">Player 2:</label>
+        <select id="player8Select"></select>
+    </div>
+    <div>
+        <label for="player9Select">Player 3:</label>
+        <select id="player9Select"></select>
+    </div>
+    <div>
+        <label for="player10Select">Player 4:</label>
+        <select id="player10Select"></select>
+    </div>
+    <button id="startfreeforall">Start Game</button>
+    <button id="cancelfreeforall">Close</button>
+</div>
+
+<div id="pauseMenu">
+    <h1>Game on Pause</h1>
+    <button id="resumeButton">Start Game</button>
+</div>
+
+<div id="pauseMenufreeforall">
+    <h1>Game on Pause</h1>
+    <button id="resumeButtonfree">Start Game</button>
+    <h1>player 1 (blue) left  up down</h1>
+    <h1>player 2 (red) right "w" "s"</h1>
+    <h1>player 3 (yellow) top "z" "x"</h1>
+    <h1>player 4 (white) bottom "o" "p" </h1>
+</div>
+
+    <script type="module">
+        import { init } from '/static/frontend/games/pong/pong.js';
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+
+</html>
+
